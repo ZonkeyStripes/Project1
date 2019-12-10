@@ -8,7 +8,7 @@
 
 <body>
   <button >Click me</button>
-
+  <input type="text" id="input">
 
   <div id="gifs-appear-here">
   </div>
@@ -18,8 +18,8 @@
     // Event listener for all button elements
     $("button").on("click", function() {
 
-      var queryURL = "https://api.edamam.com/search?q=chicken&app_id=71e0d17f&app_key=a0c9342317580b0fbf06152010ee5e86";
-
+      let input = $("#input").val()
+      var queryURL = "https://api.edamam.com/search?q=" + input + "&app_id=71e0d17f&app_key=a0c9342317580b0fbf06152010ee5e86";
       // Performing our AJAX GET request
       $.ajax({
         url: queryURL,
