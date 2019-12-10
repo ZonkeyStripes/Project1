@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Quoth the Giphy</title>
+</head>
+
+<body>
+  <button >Click me</button>
+
+
+  <div id="gifs-appear-here">
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // Event listener for all button elements
+    $("button").on("click", function() {
+
+      var queryURL = "https://api.edamam.com/search?q=chicken&app_id=71e0d17f&app_key=a0c9342317580b0fbf06152010ee5e86";
+
+      // Performing our AJAX GET request
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+        // After the data comes back from the API
+        .then(function(response) {
+
+          console.log(response);
+
+        });
+    });
+  </script>
+</body>
+
+</html>
