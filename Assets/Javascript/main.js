@@ -11,10 +11,6 @@ $("button").on("click", function() {
       .then(function(response) {
 
         console.log(response);
-// added text of no consequence. ignore
-// another addition. ignore again
-// a third change. ignore once again
-// fourth. keep on ignoring
-// is the fifth time the charm????
+
       });
   });
