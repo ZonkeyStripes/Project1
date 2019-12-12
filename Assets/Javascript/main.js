@@ -15,6 +15,8 @@ $("button").on("click", function() {
         $("#recipes").empty();
 
         for(let i = 0; i < 3; i++) {
+
+          // gets and displays recipe name, URL and thumbnail image
           let recipeName = $("<p>");
           let recipeURL = $("<p>");
           let recipeThumbnail = $("<img>");
@@ -42,9 +44,24 @@ $("button").on("click", function() {
           }
           $("#recipes").append(ingred);
 
-        }
 
-        
+
+          // get and display nutrition info
+          let totalCalories = Math. round(response.hits[i].recipe.calories);
+          let servings = response.hits[i].recipe.yield;
+          let calDiv = $("<div>");
+          let servingsDiv = $("<div>");
+          let calsPerServing = $("<div>");
+          calDiv.text("Total Calories: " + totalCalories);
+          servingsDiv.text("# of Servings: " + servings);
+          calsPerServing.text(Math.round(totalCalories / servings) + " calories per serving");
+
+
+          $("#recipes").append(calDiv);
+          $("#recipes").append(servingsDiv);
+          $("#recipes").append(calsPerServing);
+
+        }
 
       });
   });
