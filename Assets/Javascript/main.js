@@ -11,6 +11,6 @@ $("button").on("click", function() {
       .then(function(response) {
 
         console.log(response);
-
+// added text of no consequence. ignore
       });
   });
