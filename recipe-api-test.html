@@ -25,69 +25,47 @@
 </head>
 <body>
     <!-- Header/Nav Bar -->
-    <div class="jumbotron">
+    <div class="col-12 section">
         <h1 class="display-3">Go Go Gadget Recipe Finder</h1>
         <p class="lead">Find something to make tonight!</p>
-        <a href="RecipeFinder.html">Make a Meal</a>
-        <a href="DrinkFinder.html">Mix a drink</a>
+        <a href="RecipeFinder.html" class="btn">Make a Meal</a>
+        <a href="DrinkFinder.html" class="btn">Mix a drink</a>
+        <a href="Index.html" class="btn">Home</a>
     </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Go Go Gadget Recipe Finder</title>
-</head>
-<body>
-    <!-- Header/Nav Bar -->
-    <div class="jumbotron">
-        <h1 class="display-3">Go Go Gadget Recipe Finder</h1>
-        <p class="lead">Find something to make tonight!</p>
-        <a href="Index.html">Home</a>
-        <a href="DrinkFinder.html">Mix a Drink</a>
-    </div>    
+   
     <!-- Recipe Input Box -->
-    <div class="w3-container" id="foodinput">
+    <div class="col-12 section" id="foodinput">
         What ingredients do you have? <br>
-        <input> <br>
-        <button>Find some recipes</button>
+        <div id="ingredientListDiv">
+          <ul id="ingList"></ul>
+        </div>
+        <input id="foodInputBox"> <br>
+        <button id="addIngredientButton">Add ingredient</button>
+        <button id="clearIngredientsButton">Clear ingredients</button>
+        <button id="foodSearchButton">Find some recipes</button>
     </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Go Go Gadget Recipe Finder</title>
-</head>
-<body>
-    <!-- Header/Nav Bar -->
-    <div class="jumbotron">
-        <h1 class="display-3">Go Go Gadget Recipe Finder</h1>
-        <p class="lead">Find something to make tonight!</p>
-        <a href="Index.html">Home</a>
-        <a href="RecipeFinder.html">Make a Meal</a>
-    </div>    
+    
     <!-- Recipe Input Box -->
-    <div class="w3-container" id="foodinput">
+    <div class="w3-container" id="drinkinput">
         What drinks do you have? <br>
         <input> <br>
         <button>Mix some drinks!</button>
     </div>
 
 
-  <div id="recipes">
+  <div id="recipes" class="col-12 section">
+    this is where the recipie boxes will populate
   </div>
 
 <!--  -->
 <!-- the Materialize javascript required for use -->
-<script type="text/javascript" src="C:\Users\bobst\Desktop\materialize-v1.0.0\materialize\js\materialize.min.js"></script>
-<!--  -->
+<script type="text/javascript" src="./Assets/Javascript/materialize.min.js"></script>
+
+<!-- Import JQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- Import our javascript file -->
+<script type="text/javascript" src="./Assets/Javascript/main.js"></script>
 <!--  -->
 
 
