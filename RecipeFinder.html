@@ -12,6 +12,9 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="Assets/Css/materialize.css"  media="screen,projection"/>
 
+    <!-- I don't know why... but the collapsable items where we put the recepies on the bottom won't work unless I put the exact same line above here, but with type as "text/javascript"-Sam -->
+    <link type="text/javascript" rel="stylesheet" href="Assets/Css/materialize.css"  media="screen,projection"/>
+
     <!-- trying to link in our own stylesheet... -->
     <link type="text/css" rel="stylesheet" href="Assets/Css/style.css"/>
 
@@ -19,21 +22,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <!--  -->
 <!--  -->
+    <!-- Links -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel = "stylesheet"
+    href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript"
+    src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>         
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
 
     <title>Go Go Gadget Recipe Finder</title>
-    <!-- Links -->
+
 </head>
 <body>
     <!-- Header/Nav Bar -->
-    <div class="jumbotron">
-        <h1 class="display-3">Go Go Gadget Recipe Finder</h1>
-        <p class="lead">Find Something to Make Tonight!</p>
-        <a href="Index.html">Home</a>
+    <div class="col-12 section">
+
+        <!-- Title and short explination at top section -->
+        <div class="row center"
+            <h1 class="display-3">Go Go Gadget Recipe Finder</h1>
+            <p class="lead">Find Something to Make Tonight!</p>
+        </div>
+
+        <!-- Link buttons -->
+        <a href="Index.html">How Does This Work?</a>
+        <a href="RecipeFinder.html">Make a Meal!</a>
         <a href="DrinkFinder.html">Mix a Drink!</a>
     </div>
 
     <!-- Recipe Input Box -->
-    <div class="w3-container" id="foodinput">
+    <div class="col-12 section" id="foodinput">
         What ingredients do you have? <br>
         <div id="ingredientListDiv">
           <ul id="ingList"></ul>
@@ -44,7 +62,22 @@
         <button id="foodSearchButton">Find Some Recipes</button>
     </div>
 
-  <div id="recipes">
+  <div id="recipes" class="col-12 section">
+    <!-- this is where the recipe boxes will popluate -->
+    <ul class="collapsible popout" data-collapsible = "accordion">
+        <li>
+            <div class="collapisble-header">First Recipe</div>
+            <div class="collapsible-body"><p id="recipe_0">First recipe goes here</p></div>"
+        </li>
+        <li>
+            <div class="collapsible-header">Second Recipe</div>
+            <div class="collapsible-body"><p id="recipe_1">Second recipe goes here</p></div>
+        </li>
+        <li>
+            <div class="collapsible-header">Third Recipe</div>
+            <div class="collapsible-body"><p id="recipe_2">Third recipe goes here</p></div>
+        </li>
+    </ul>
   </div>
 
 <!--  -->
