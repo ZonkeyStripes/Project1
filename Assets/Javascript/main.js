@@ -54,24 +54,29 @@ $("#foodSearchButton").on("click", function() {
 
       console.log(response);
 
-      $("#recipes").empty();
+      // $("#recipes").empty();
 
     for(let i = 0; i < 3; i++) {
 
-      // gets and displays recipe name, URL and thumbnail image
-      let recipeName = $("<p>");
-      let recipeURL = $("<p>");
-      let recipeThumbnail = $("<img>");
-      recipeThumbnail.attr("src", response.hits[i].recipe.image);
-      $(recipeThumbnail).width(200);
-      $(recipeName).text(response.hits[i].recipe.label);
-      $(recipeName).css('font-weight', 'bold');
+      // create ID strings
+      let headerID = "#recipeHeader" + i;
+      let recipeBodyID = "#recipie_" + i;
+
+      console.log("headerID = " + headerID);
+
+      $(headerID).text(response.hits[i].recipe.label);
+
+      $(recipeBodyID).empty();
+
+      let recipeURL = $("<div>");
       $(recipeURL).text(response.hits[i].recipe.url);
 
+      let recipeThumbnail = $("<img>");
+      recipeThumbnail.attr("src", response.hits[i].recipe.image);
+      recipeThumbnail.attr("alt", "Picture of " + response.hits[i].recipe.label);
+      $(recipeThumbnail).width(200);
       
-      $("#recipes").append(recipeName);
-      $("#recipes").append(recipeURL);
-      $("#recipes").append(recipeThumbnail);
+
 
       let ingred = $("<ul>");
       let recipeIngList = response.hits[i].recipe.ingredients;
@@ -84,7 +89,12 @@ $("#foodSearchButton").on("click", function() {
         ingred.append(newEl);
 
       }
-      $("#recipes").append(ingred);
+      $(recipeBodyID).append("Ingredients");
+      $(recipeBodyID).append(ingred);
+
+
+      $(recipeBodyID).append(recipeURL);
+      $(recipeBodyID).append(recipeThumbnail);
 
 
 
@@ -99,9 +109,9 @@ $("#foodSearchButton").on("click", function() {
       calsPerServing.text(Math.round(totalCalories / servings) + " calories per serving");
 
 
-      $("#recipes").append(calDiv);
-      $("#recipes").append(servingsDiv);
-      $("#recipes").append(calsPerServing);
+      $(recipeBodyID).append(calDiv);
+      $(recipeBodyID).append(servingsDiv);
+      $(recipeBodyID).append(calsPerServing);
 
       }
 
