@@ -1,6 +1,5 @@
 let foodIngredientList = [];
 
-
 $("#recipes").hide();
 
 // add ingredients to the list
@@ -18,17 +17,12 @@ $("#addIngredientButton").on("click", function() {
     newItem.text(foodIngredientList[i]);
     $("#ingList").append($(newItem));
   }
-
 });
-
 
 $("#clearIngredientsButton").on("click", function() {
   foodIngredientList = [];
   $("#ingList").empty();
-
 });
-
-
 
 // builds the search string and queries the recipe API, displays results
 $("#foodSearchButton").on("click", function() {

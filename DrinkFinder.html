@@ -45,6 +45,9 @@
     <!-- Recipe Input Box -->
     <div class="col-12 section" id="drinkinput">
         What drinks do you have? <br>
+        <div id="ingredientListDiv">
+            <ul id="ingList"></ul>
+          </div>
         <div id="drink"></div>
         <input id="drinkInputBox"> <br>
         <button id="addDrinkButton">Add Drink</button>
@@ -53,20 +56,7 @@
     </div>
   <div id="recipes" class="col-12 section">
     <!-- this is where the recipe boxes will popluate -->
-    <ul class="collapsible popout" data-collapsible = "accordion">
-        <li>
-            <div class="collapsible-header">First Recipe</div>
-            <div class="collapsible-body"><p id="recipe_0">First recipe goes here</p></div>
-        </li>
-        <li>
-            <div class="collapsible-header">Second Recipe</div>
-            <div class="collapsible-body"><p id="recipe_1">Second recipe goes here</p></div>
-        </li>
-        <li>
-            <div class="collapsible-header">Third Recipe</div>
-            <div class="collapsible-body"><p id="recipe_2">Third recipe goes here</p></div>
-        </li>
-    </ul>
+    
   </div>
 <!--  -->
 <!-- the Materialize javascript required for use -->
@@ -74,7 +64,7 @@
 <!-- Import JQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- Import our javascript file -->
-<script type="text/javascript" src="./Assets/Javascript/main.js"></script>
+<script type="text/javascript" src="./Assets/Javascript/maintail.js"></script>
 <!--  -->
 </body>
 </html>
