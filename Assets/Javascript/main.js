@@ -1,5 +1,7 @@
 let foodIngredientList = [];
+
 let filterToggle = false;
+
 
 $("#recipes").hide();
 $("#filterDiv").hide();
@@ -19,15 +21,13 @@ $("#addIngredientButton").on("click", function() {
     newItem.text(foodIngredientList[i]);
     $("#ingList").append($(newItem));
   }
-
 });
-
 
 $("#clearIngredientsButton").on("click", function() {
   foodIngredientList = [];
   $("#ingList").empty();
-
 });
+
 
 $("#showFilterText").on("click", function() {
 
