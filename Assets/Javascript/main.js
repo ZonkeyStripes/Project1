@@ -63,7 +63,7 @@ $("#foodSearchButton").on("click", function() {
 
       // create ID strings
       let headerID = "#recipeHeader" + i;
-      let recipeBodyID = "#recipie_" + i;
+      let recipeBodyID = "#recipe_" + i;
 
       console.log("headerID = " + headerID);
 
