@@ -23,22 +23,24 @@
     <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-    <title>Go Go Gadget Recipe Finder</title>
+
+
+    <title>Go get drunk as a skunk helper!</title>
 </head>
-<body>
+<body id="drink_finder_body_tag">
     <!-- Header/Nav Bar -->
-    <div class="col-12 section">
+    <div class="col-12 center header_section">
         <!-- Title and short paragraph at top of the section -->
         <div class="row center">
-            <h1 class="display-3">Go Go Gadget Recipe Finder</h1>
-            <p class="lead">Find Something to Make Tonight!</p>
+            <h1 class="display-3">Go get drunk as a skunk helper!</h1>
+            <p class="lead">Figure out how to get drunk tonight!</p>
         </div>
         <!-- Link Buttons -->
         <div class="row">
             <div class="col right" id="nav_buttons">
-                <a href="Index.html">How Does This Work?</a>
-                <a href="RecipeFinder.html">Make a Meal!</a>
-                <a href="DrinkFinder.html">Mix a Drink!</a>
+                <a href="Index.html" class="btn">How Does This Work?</a>
+                <a href="RecipeFinder.html" class="btn">Make a Meal!</a>
+                <a href="DrinkFinder.html" class="btn">Mix a Drink!</a>
             </div>
         </div>
     </div>    
@@ -50,9 +52,9 @@
           </div>
         <div id="drink"></div>
         <input id="drinkInputBox"> <br>
-        <button id="addDrinkButton">Add Drink</button>
-        <button id="clearDrinksButton">Clear Drinks</button>
-        <button id="DrinkSearchButton">Mix Some Drinks</button>
+        <button id="addDrinkButton" class="btn">Add Drink</button>
+        <button id="clearDrinksButton" class="btn">Clear Drinks</button>
+        <button id="DrinkSearchButton" class="btn">Mix Some Drinks</button>
     </div>
   <div id="recipes" class="col-12 section">
     <!-- this is where the recipe boxes will popluate -->

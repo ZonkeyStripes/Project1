@@ -1,11 +1,31 @@
-/* changing the backgroung just to make sure that this file is linked to the HTML file. -sam w */
-html {
-    background-color: lightgray;
+/* changing the backgroung on each individual page. -sam w */
+#recipe_finder_html_tag {
+    background-color:lightsteelblue;
+    background-image: url("../Css/Food_background2.png");
+    background-size: cover;
+
 }
 
+#drink_finder_body_tag {
+    background-color: lightgray;
+    background-image: url("../Css/Drinks_background.png");
+    background-size: cover;
+}
+
+.lead {
+    
+    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 2px;
+
+}
+.header_section {
+    color: #fff;
+    text-shadow: 1px 1px 4px black;
+}
 .section {
     
-    background-color: lightskyblue;
+    background-color: lightgray;
     padding: 2%;
     margin: 2%;
     
