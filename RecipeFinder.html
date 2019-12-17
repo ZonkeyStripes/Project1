@@ -23,13 +23,10 @@
 <!--  -->
 <!--  -->
     <!-- Links -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel = "stylesheet"
-    href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-    <script type = "text/javascript"
-    src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>         
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
-    </script>
+    <link rel = "stylesheet" href="https://fonts.googleapis.com/icon?   family=Material+Icons">
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
     <title>Go Go Gadget Recipe Finder</title>
 
@@ -39,15 +36,22 @@
     <div class="col-12 section">
 
         <!-- Title and short explination at top section -->
-        <div class="row center"
+        <div class="row center">
             <h1 class="display-3">Go Go Gadget Recipe Finder</h1>
             <p class="lead">Find Something to Make Tonight!</p>
         </div>
 
         <!-- Link buttons -->
-        <a href="Index.html">How Does This Work?</a>
-        <a href="RecipeFinder.html">Make a Meal!</a>
-        <a href="DrinkFinder.html">Mix a Drink!</a>
+        <div class="row">
+            <!-- this invisible section is "eight wide" to push the buttons to the right by that "eight wide" length -->
+            <!-- <div class="col s8" id="invisible_header_area">what should be an invisible area to push buttons</div> -->
+            <!-- Then here are the buttons which will link to the other pages or whatever. -->
+            <div class="col right" id="nav_buttons">
+                <a href="Index.html">How Does This Work?</a>
+                <a href="RecipeFinder.html">Make a Meal!</a>
+                <a href="DrinkFinder.html">Mix a Drink!</a>
+            </div>
+        </div>
     </div>
 
     <!-- Recipe Input Box -->
@@ -66,8 +70,8 @@
     <!-- this is where the recipe boxes will popluate -->
     <ul class="collapsible popout" data-collapsible = "accordion">
         <li>
-            <div class="collapisble-header">First Recipe</div>
-            <div class="collapsible-body"><p id="recipe_0">First recipe goes here</p></div>"
+            <div class="collapsible-header">First Recipe</div>
+            <div class="collapsible-body"><p id="recipe_0">First recipe goes here</p></div>
         </li>
         <li>
             <div class="collapsible-header">Second Recipe</div>
@@ -82,6 +86,7 @@
 
 <!--  -->
 <!-- the Materialize javascript required for use -->
+<script type="text/javascript" src="./Assets/Javascript/materialize.js"></script>
 <!-- <script type="text/javascript" src="C:\Users\bobst\Desktop\materialize-v1.0.0\materialize\js\materialize.min.js"></script> -->
 
 <!-- Import JQuery -->
