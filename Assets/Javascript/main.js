@@ -1,5 +1,8 @@
 let foodIngredientList = [];
 
+
+$("#recipes").hide();
+
 // add ingredients to the list
 $("#addIngredientButton").on("click", function() {
   let newIngredient = $("#foodInputBox").val().trim();
@@ -54,7 +57,7 @@ $("#foodSearchButton").on("click", function() {
 
       console.log(response);
 
-      // $("#recipes").empty();
+    $("#recipes").show();
 
     for(let i = 0; i < 3; i++) {
 
@@ -69,7 +72,11 @@ $("#foodSearchButton").on("click", function() {
       $(recipeBodyID).empty();
 
       let recipeURL = $("<div>");
-      $(recipeURL).text(response.hits[i].recipe.url);
+      let recipeLink = $("<a>");
+      recipeLink.attr("href", response.hits[i].recipe.url);
+      recipeLink.attr("target", "_blank");
+      recipeLink.text(response.hits[i].recipe.url);
+      $(recipeURL).append(recipeLink);
 
       let recipeThumbnail = $("<img>");
       recipeThumbnail.attr("src", response.hits[i].recipe.image);
@@ -89,6 +96,7 @@ $("#foodSearchButton").on("click", function() {
         ingred.append(newEl);
 
       }
+
       $(recipeBodyID).append("Ingredients");
       $(recipeBodyID).append(ingred);
 
@@ -108,10 +116,29 @@ $("#foodSearchButton").on("click", function() {
       servingsDiv.text("# of Servings: " + servings);
       calsPerServing.text(Math.round(totalCalories / servings) + " calories per serving");
 
+      let fatQuantity = response.hits[i].recipe.totalNutrients.FAT.quantity;
+      fatQuantity = fatQuantity.toFixed(1);
+      fatQuantity = fatQuantity + response.hits[i].recipe.totalNutrients.FAT.unit;
+      let fatDiv = $("<div>");
+      fatDiv.text("Total fat: " + fatQuantity);
+      let fatPerServing = $("<div>");
+      fatPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.FAT.quantity / servings) + response.hits[i].recipe.totalNutrients.FAT.unit + " fat per serving");
+
+      let proteinQuantity = response.hits[i].recipe.totalNutrients.PROCNT.quantity;
+      proteinQuantity = proteinQuantity.toFixed(1);
+      proteinQuantity = proteinQuantity + response.hits[i].recipe.totalNutrients.PROCNT.unit;
+      let proteinDiv = $("<div>");
+      proteinDiv.text("Total protein: " + proteinQuantity);
+      let proteinPerServing = $("<div>");
+      proteinPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.PROCNT.quantity / servings) + response.hits[i].recipe.totalNutrients.PROCNT.unit + " protein per serving");
 
       $(recipeBodyID).append(calDiv);
       $(recipeBodyID).append(servingsDiv);
       $(recipeBodyID).append(calsPerServing);
+      $(recipeBodyID).append(fatDiv);
+      $(recipeBodyID).append(fatPerServing);
+      $(recipeBodyID).append(proteinDiv);
+      $(recipeBodyID).append(proteinPerServing);
 
       }
 
