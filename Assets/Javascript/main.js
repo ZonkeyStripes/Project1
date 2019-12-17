@@ -1,5 +1,8 @@
 let foodIngredientList = [];
 
+
+$("#recipes").hide();
+
 // add ingredients to the list
 $("#addIngredientButton").on("click", function() {
   let newIngredient = $("#foodInputBox").val().trim();
@@ -54,24 +57,33 @@ $("#foodSearchButton").on("click", function() {
 
       console.log(response);
 
-      $("#recipes").empty();
+    $("#recipes").show();
 
     for(let i = 0; i < 3; i++) {
 
-      // gets and displays recipe name, URL and thumbnail image
-      let recipeName = $("<p>");
-      let recipeURL = $("<p>");
+      // create ID strings
+      let headerID = "#recipeHeader" + i;
+      let recipeBodyID = "#recipe_" + i;
+
+      console.log("headerID = " + headerID);
+
+      $(headerID).text(response.hits[i].recipe.label);
+
+      $(recipeBodyID).empty();
+
+      let recipeURL = $("<div>");
+      let recipeLink = $("<a>");
+      recipeLink.attr("href", response.hits[i].recipe.url);
+      recipeLink.attr("target", "_blank");
+      recipeLink.text(response.hits[i].recipe.url);
+      $(recipeURL).append(recipeLink);
+
       let recipeThumbnail = $("<img>");
       recipeThumbnail.attr("src", response.hits[i].recipe.image);
+      recipeThumbnail.attr("alt", "Picture of " + response.hits[i].recipe.label);
       $(recipeThumbnail).width(200);
-      $(recipeName).text(response.hits[i].recipe.label);
-      $(recipeName).css('font-weight', 'bold');
-      $(recipeURL).text(response.hits[i].recipe.url);
-
       
-      $("#recipes").append(recipeName);
-      $("#recipes").append(recipeURL);
-      $("#recipes").append(recipeThumbnail);
+
 
       let ingred = $("<ul>");
       let recipeIngList = response.hits[i].recipe.ingredients;
@@ -84,7 +96,13 @@ $("#foodSearchButton").on("click", function() {
         ingred.append(newEl);
 
       }
-      $("#recipes").append(ingred);
+
+      $(recipeBodyID).append("Ingredients");
+      $(recipeBodyID).append(ingred);
+
+
+      $(recipeBodyID).append(recipeURL);
+      $(recipeBodyID).append(recipeThumbnail);
 
 
 
@@ -98,10 +116,29 @@ $("#foodSearchButton").on("click", function() {
       servingsDiv.text("# of Servings: " + servings);
       calsPerServing.text(Math.round(totalCalories / servings) + " calories per serving");
 
+      let fatQuantity = response.hits[i].recipe.totalNutrients.FAT.quantity;
+      fatQuantity = fatQuantity.toFixed(1);
+      fatQuantity = fatQuantity + response.hits[i].recipe.totalNutrients.FAT.unit;
+      let fatDiv = $("<div>");
+      fatDiv.text("Total fat: " + fatQuantity);
+      let fatPerServing = $("<div>");
+      fatPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.FAT.quantity / servings) + response.hits[i].recipe.totalNutrients.FAT.unit + " fat per serving");
 
-      $("#recipes").append(calDiv);
-      $("#recipes").append(servingsDiv);
-      $("#recipes").append(calsPerServing);
+      let proteinQuantity = response.hits[i].recipe.totalNutrients.PROCNT.quantity;
+      proteinQuantity = proteinQuantity.toFixed(1);
+      proteinQuantity = proteinQuantity + response.hits[i].recipe.totalNutrients.PROCNT.unit;
+      let proteinDiv = $("<div>");
+      proteinDiv.text("Total protein: " + proteinQuantity);
+      let proteinPerServing = $("<div>");
+      proteinPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.PROCNT.quantity / servings) + response.hits[i].recipe.totalNutrients.PROCNT.unit + " protein per serving");
+
+      $(recipeBodyID).append(calDiv);
+      $(recipeBodyID).append(servingsDiv);
+      $(recipeBodyID).append(calsPerServing);
+      $(recipeBodyID).append(fatDiv);
+      $(recipeBodyID).append(fatPerServing);
+      $(recipeBodyID).append(proteinDiv);
+      $(recipeBodyID).append(proteinPerServing);
 
       }
 
