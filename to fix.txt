@@ -7,3 +7,5 @@ select number of results
 make enter submit the search
 
 https://materializecss.com/dropdown.html
+
+make the filters work
