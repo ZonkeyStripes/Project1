@@ -5,6 +5,7 @@ $("#addDrinkButton").on("click", function () {
   $("#drinkInputBox").val("");
   drinkIngredientList.push(newIngredient);
 
+
   $("#ingList").empty();
   //create and display new ingredient on web page
   for (let i = 0; i < drinkIngredientList.length; i++) {
@@ -22,6 +23,9 @@ $("#DrinkSearchButton").on("click", function showDrinks() {
   //     $("#drnkHere").text("");
   // }
   // clearBox();
+
+
+  $("#recipes").show();
   let input = "";
   for (let i = 0; i < drinkIngredientList.length; i++) {
     input = input + " " + drinkIngredientList[i];

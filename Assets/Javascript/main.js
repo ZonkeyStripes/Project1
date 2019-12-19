@@ -1,6 +1,10 @@
 let foodIngredientList = [];
 
+let filterToggle = false;
+
+
 $("#recipes").hide();
+$("#filterDiv").hide();
 
 // add ingredients to the list
 $("#addIngredientButton").on("click", function() {
@@ -24,6 +28,20 @@ $("#clearIngredientsButton").on("click", function() {
   $("#ingList").empty();
 });
 
+
+$("#showFilterText").on("click", function() {
+
+  if(filterToggle == false) {
+    $("#filterDiv").show();
+    filterToggle = true;
+    $("#showFilterText").text("Hide Filters");
+  } else {
+    $("#filterDiv").hide();
+    filterToggle = false;
+    $("#showFilterText").text("Show Filters");
+  }
+});
+
 // builds the search string and queries the recipe API, displays results
 $("#foodSearchButton").on("click", function() {
 
@@ -33,7 +51,7 @@ $("#foodSearchButton").on("click", function() {
   for(let i = 0; i < foodIngredientList.length; i++) {
     input = input + " " + foodIngredientList[i];
   }
-  input.trim();
+  input = input.trim();
 
   console.log("input = " + input);
 

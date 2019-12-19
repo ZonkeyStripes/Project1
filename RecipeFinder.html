@@ -57,9 +57,40 @@
           <ul id="ingList"></ul>
         </div>
         <input id="foodInputBox"> <br>
-        <button id="addIngredientButton" class="btn"style="background-color: rgb(180, 6, 6)">Add Ingredient</button>
-        <button id="clearIngredientsButton"class="btn"style="background-color: rgb(180, 6, 6)">Clear Ingredients</button>
-        <button id="foodSearchButton"class="btn"style="background-color: rgb(180, 6, 6)">Find Some Recipes</button>
+
+<button id="addIngredientButton" class="btn"style="background-color: rgb(180, 6, 6)">Add Ingredient</button>
+<button id="clearIngredientsButton"class="btn"style="background-color: rgb(180, 6, 6)">Clear Ingredients</button>
+<button id="foodSearchButton"class="btn"style="background-color: rgb(180, 6, 6)">Find Some Recipes</button>
+
+        <span id="showFilterText">Show Filters</span>
+        <div id="filterDiv">
+            <form action="#">
+                <p>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Vegan</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Vegetarian</span>
+                  </label>
+                </p>
+                <p>
+                    <label>
+                      <input type="checkbox" />
+                      <span>Dairy-Free</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                      <input type="checkbox" />
+                      <span>Gluten-Free</span>
+                    </label>
+                </p>      
+            </form>
+        </div>
     </div>
   <div id="recipes" class="col-12 section">
     <!-- this is where the recipe boxes will popluate -->
