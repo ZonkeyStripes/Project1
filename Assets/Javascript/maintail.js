@@ -1,20 +1,8 @@
 let drinkIngredientList = [];
 
-$("#recipes").hide();
-
-
-$("#recipes").hide();
-
-
-// add ingredients to the list
 $("#addDrinkButton").on("click", function () {
   let newIngredient = $("#drinkInputBox").val().trim();
   $("#drinkInputBox").val("");
-  console.log("new Ingredient = " + newIngredient)
-  
-  drinkIngredientList.push(newIngredient);
-
-
   drinkIngredientList.push(newIngredient);
 
 
@@ -26,17 +14,10 @@ $("#addDrinkButton").on("click", function () {
     $("#ingList").append($(newItem));
   }
 });
-
-
-
 $("#clearDrinksButton").on("click", function () {
   drinkIngredientList = [];
   $("#ingList").empty();
 });
-
-
-
-
 $("#DrinkSearchButton").on("click", function showDrinks() {
   //   function clearBox() {
   //     $("#drnkHere").text("");
@@ -46,24 +27,11 @@ $("#DrinkSearchButton").on("click", function showDrinks() {
 
   $("#recipes").show();
   let input = "";
-
-  let input = "";
-
-
   for (let i = 0; i < drinkIngredientList.length; i++) {
     input = input + " " + drinkIngredientList[i];
   }
   input = input.trim();
-
-  console.log("input = " + input);
   if (input != "") {
-
-
-  console.log("input = " + input);
-
-  if (input != "") {
-
-
     // let drinkInput = $("input").val()
     let tailURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + input
     console.log(tailURL)
@@ -71,147 +39,97 @@ $("#DrinkSearchButton").on("click", function showDrinks() {
       url: tailURL,
       method: "GET"
     }).then(function (response) {
-
-      // console.log("Drink: " + response.drinks[0].strDrink)
-      // console.log("Drink Id: " + response.drinks[0].idDrink)
+      $("#recipes").show();
       for (i = 0; i < response.drinks.length; i++) {
         // response.drinks.length
         console.log(response.drinks[i].strDrinkThumb)
         let div = $("#recipes")
         let unorderList = $("<ul>").addClass("collapsible popout").attr("data-collapsible", "accordion")
         let dList = $("<li>")
-        let divHead = $("<div>").addClass("collapsible-header")
-        $(divHead).text(response.drinks[i].strDrink);
-        let divBody = $("<div>").addClass("collapsible-body")
-        let display = $("<p>").attr("id", "recipe_" + i).text(response.drinks[i].strDrink)
-
-
-      // console.log("Drink: " + response.drinks[0].strDrink)
-      // console.log("Drink Id: " + response.drinks[0].idDrink)
-
-      $("#recipes").show();
-      let unorderList = $("<ul>").addClass("collapsible popout").attr("data-collapsible", "accordion")
-
-      for (i = 0; i < response.drinks.length; i++) {
-
-        // response.drinks.length
-        console.log(response.drinks[i].strDrinkThumb)
-
-        let div = $("#recipes")
-        let dList = $("<li>")
+        dList.addClass("");
         let divHead = $("<div>").addClass("collapsible-header")
         $(divHead).text(response.drinks[i].strDrink)
-        let divBody = $("<div>").addClass("collapsible-body")
-        
-        
+        let drnkID = response.drinks[i].idDrink
+        let divBody = $("<div>").addClass("collapsible-body").attr("id", drnkID)
+        let display = $("<p>").attr("id", "recipe_" + i)
+        let titleDisplay = $("<p>").text(response.drinks[i].strDrink + ":").attr("style", "font-weight: bold;")
 
         $(div).append(unorderList)
         $(unorderList).append(dList)
         $(dList).append(divHead)
         $(dList).append(divBody)
-
+        $(divBody).append(titleDisplay)
         $(divBody).append(display)
 
-        // $(divBody).append(display)
-        
+        // this initializes the collapsibles
+        $('.collapsible').collapsible();
 
-        // $(display).attr("id", drnkID)
-        // //give the p tag an id
-        // $("#recipe_0").append(div)
-        // $(div).append(display)
-        // $(div).append(imgLink)
 
-        let drnkID = response.drinks[i].idDrink
-        // let display = $("<p></p>").text(response.drinks[i].strDrink)
-        // let imgLink = $("<a>").attr("href", response.drinks[i].strDrinkThumb).attr("target", "_blank").text(response.drinks[i].strDrinkThumb)
-        // let unorder = $("<ul></ul>")
         //when you click on text of drink
-        $('#' + drnkID).on('click', function showStuff() {
-          function clearStuff() {
-            $(unorder).text("")
+        // $('#' + drnkID).on('click', function showStuff() {
+        function clearStuff() {
+          // $(unorder).text("")
+        }
+        clearStuff();
+        //do the next request in here
+        let idURL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drnkID
+        $.ajax({
+          url: idURL,
+          method: "GET"
+        }).then(function (res) {
+          // ingredient and measure list
+          for (j = 1; j < 15; j++) {
 
-        
-
-        let drnkID = response.drinks[i].idDrink
-        // let display = $("<p></p>").text(response.drinks[i].strDrink)
-        // let imgLink = $("<a>").attr("href", response.drinks[i].strDrinkThumb).attr("target", "_blank").text(response.drinks[i].strDrinkThumb)
-        let unorder = $("<ul></ul>")
-        
-        
-        //when you click on text of drink
-        $('#' + drnkID).on('click', function showStuff() {
-          function clearStuff() {
-            // $(unorder).text("")
-
-          }
-          clearStuff();
-          //do the next request in here
-          let idURL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drnkID
-
-          $.ajax({
-            url: idURL,
-            method: "GET"
-          }).then(function (res) {
-            // ingredient and measure list
-            for (j = 1; j < 15; j++) {
-
-
-              console.log(res.drinks[0]);
-              let ingredNum = "strIngredient" + j;
-              let measureNum = "strMeasure" + j;
-              console.log("ingredNum = " + ingredNum);
-
-              if (res.drinks[0][ingredNum] != null) {
-                let ingList = $("<li></li>").attr("class", "ingredients").text(res.drinks[0][ingredNum]);
-                let measureList = $("<li></li>").attr("class", "measure").text(res.drinks[0][measureNum]);
-                console.log(res.drinks[0][ingredNum]);
-
+            let ingredNum = "strIngredient" + j;
+            let measureNum = "strMeasure" + j;
+            let measurement = res.drinks[0][measureNum]
+            
+            if (res.drinks[0][ingredNum] != null) {
               
-              if (res.drinks[0][ingredNum] != null) {
+              if (measurement == null) {
+                measurement = "Optional"
                 
-                let display = $("<p>").attr("id", "recipe_" + i).text(response.drinks[i].strDrink)
-
-                let ingList = $("<li></li>").attr("class", "ingredients").text(res.drinks[0][ingredNum]);
-                let measureList = $("<li></li>").attr("class", "measure").text(res.drinks[0][measureNum]);
-
-
-                console.log(res.drinks[0][ingredNum]);
-                
-
-                $(display).append(unorder)
-                $(unorder).append(ingList)
-                $(unorder).append(measureList)
               }
+              let unorder = $("<ul></ul>")
+              let ingList = $("<li></li>").attr("class", "ingredients").text(res.drinks[0][ingredNum] + ":  " + measurement);
+              // let measureList = $("<li></li>").attr("class", "measure").text(res.drinks[0][measureNum]);
+              console.log("Display == " + display);
+              $(display).append(unorder)
+              $(unorder).append(ingList)
+              // $(unorder).append(measureList)
             }
+          }
+          let brake = $("<br>")
+          let pTag = $("<p>")
+          let type = $("<li>").text("Type of drink:   " + res.drinks[0].strCategory)
+          let glass = $("<li>").text("Glass used (Optional):   " + res.drinks[0].strGlass)
+
+          $(display).append(pTag)
+          $(pTag).append(type)
+          $(pTag).append(glass)
+          $(pTag).append(brake)
+
+          let drinkImg = $("<img>")
+          drinkImg.attr("src", res.drinks[0].strDrinkThumb)
+          drinkImg.attr("alt", "Picture of " + res.drinks[0].strDrink)
+          let instructions = $("<p>").attr("style", "font-weight: bold;")
+          let instructionTitle = $("<p>").attr("style", "font-weight: bold;")
+          instructionTitle.text("Instructions: ")
+
+          instructions.text(res.drinks[0].strInstructions)
+          $(drinkImg).width(200)
+          $(display).append(drinkImg)
+          $(display).append(instructionTitle)
+          $(instructionTitle).append(instructions)
 
 
 
-            //console.log(res.drinks[0].strIngredient1)
-            //console.log(res.drinks[0].strMeasure1)
-          })
-        })
-        //use the id to create an on click event
-
-      }
-      // display drinks that you can make out of said ingredient
-      // onclick of drink, show total ingredients of said mix drink
-
-
-      }
-
-
-
-
-      // display drinks that you can make out of said ingredient
-      // onclick of drink, show total ingredients of said mix drink
-
-
-      //click on text of drink to acquire drink id
-      //
+        })// end of ingredient loop
+        // }) //end of second click function
+      } // end of first loop
     })
   }
 })
-//this is the one for the food. Maria has modified in her file I belive
 function showIngredient() {
 }
 $("#clickMe").on("click", function () {
@@ -224,6 +142,6 @@ $("#clickMe").on("click", function () {
   })
     // After the data comes back from the API
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
     });
 });
