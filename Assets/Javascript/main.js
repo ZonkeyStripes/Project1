@@ -2,12 +2,15 @@ let foodIngredientList = [];
 
 let filterToggle = false;
 
-
 $("#recipes").hide();
 $("#filterDiv").hide();
 
 // add ingredients to the list
 $("#addIngredientButton").on("click", function() {
+  addIngredient();
+});
+
+function addIngredient() {
   let newIngredient = $("#foodInputBox").val().trim();
   $("#foodInputBox").val("");
   console.log("new Ingredient = " + newIngredient);
@@ -17,11 +20,11 @@ $("#addIngredientButton").on("click", function() {
   $("#ingList").empty();
   //create and display new ingredient on web page
     for(let i = 0; i < foodIngredientList.length; i++) {
-    let newItem = $("<li>");
-    newItem.text(foodIngredientList[i]);
-    $("#ingList").append($(newItem));
-  }
-});
+      let newItem = $("<li>");
+      newItem.text(foodIngredientList[i]);
+      $("#ingList").append($(newItem));
+    }
+}
 
 $("#clearIngredientsButton").on("click", function() {
   foodIngredientList = [];
@@ -56,8 +59,35 @@ $("#foodSearchButton").on("click", function() {
   console.log("input = " + input);
 
   if(input != "") {
+  
+
+    $("#recipes").empty();
+
     var queryURL = "https://api.edamam.com/search?q=" + input + "&app_id=71e0d17f&app_key=a0c9342317580b0fbf06152010ee5e86";
+    
+    // adding the optional search filters to the query
+    if($('#veganCheckbox').is(":checked")) {
+      console.log("adding vegan to query");
+      queryURL = queryURL + "&health=vegan";
+    }
+    if($('#vegetarianCheckbox').is(":checked")) {
+      console.log("adding vegetarian to query");
+      queryURL = queryURL + "&health=vegetarian";
+    }
+    if($('#peanutfreeCheckbox').is(":checked")) {
+      console.log("adding peanut free to query");
+      queryURL = queryURL + "&health=peanut-free";
+    }
+    if($('#alcoholfreeCheckbox').is(":checked")) {
+      console.log("adding alcohol free to query");
+      queryURL = queryURL + "&health=alcohol-free";
+    }    
+
+
+    
     console.log("queryURL = " + queryURL);
+
+
 
     // Performing our AJAX GET request
     $.ajax({
@@ -68,92 +98,134 @@ $("#foodSearchButton").on("click", function() {
     .then(function(response) {
 
       console.log(response);
+      let numOfRecipes = response.hits.length;
 
-    $("#recipes").show();
+      if(numOfRecipes == 0) {
+        $("#recipes").empty();
+        $("#recipes").text("No results found, please search again");
+      } else {
 
-    for(let i = 0; i < 3; i++) {
+        $("#recipes").show();
 
-      // create ID strings
-      let headerID = "#recipeHeader" + i;
-      let recipeBodyID = "#recipe_" + i;
+        let recipeResultList = $("<ul>");
+        recipeResultList.addClass("collapsible popout");
+        recipeResultList.attr("data-collapsible", "accordion");
 
-      console.log("headerID = " + headerID);
+        for(let i = 0; i < numOfRecipes; i++) {
 
-      $(headerID).text(response.hits[i].recipe.label);
+          // create ID strings
+          let headerID = "#recipeHeader" + i;
+          let recipeBodyID = "#recipe_" + i;
 
-      $(recipeBodyID).empty();
+          // create new list element
+          let newListElement = $("<li>");
+          let newHeaderDiv = $("<div>");
+          newHeaderDiv.addClass("collapsible-header");
+          newHeaderDiv.attr("id", headerID);
+          let newBodyDiv = $("<div>");
+          newBodyDiv.addClass("collapsible-body");
+          newBodyDiv.attr("id", recipeBodyID);
 
-      let recipeURL = $("<div>");
-      let recipeLink = $("<a>");
-      recipeLink.attr("href", response.hits[i].recipe.url);
-      recipeLink.attr("target", "_blank");
-      recipeLink.text(response.hits[i].recipe.url);
-      $(recipeURL).append(recipeLink);
+          // append new collapsible
+          newListElement.append(newHeaderDiv);
+          newListElement.append(newBodyDiv);
+          recipeResultList.append(newListElement);
 
-      let recipeThumbnail = $("<img>");
-      recipeThumbnail.attr("src", response.hits[i].recipe.image);
-      recipeThumbnail.attr("alt", "Picture of " + response.hits[i].recipe.label);
-      $(recipeThumbnail).width(200);
+          console.log("headerID = " + headerID);
+          console.log("label = " + response.hits[i].recipe.label);
+
+          $(newHeaderDiv).text(response.hits[i].recipe.label);
+
+          $(newBodyDiv).empty();
+
+          let recipeURL = $("<div>");
+          let recipeLink = $("<a>");
+          recipeLink.attr("href", response.hits[i].recipe.url);
+          recipeLink.attr("target", "_blank");
+          recipeLink.text(response.hits[i].recipe.url);
+          $(recipeURL).append(recipeLink);
+
+          let recipeThumbnail = $("<img>");
+          recipeThumbnail.attr("src", response.hits[i].recipe.image);
+          recipeThumbnail.attr("alt", "Picture of " + response.hits[i].recipe.label);
+          $(recipeThumbnail).width(200);
+          
+
+
+          let ingred = $("<ul>");
+          let recipeIngList = response.hits[i].recipe.ingredients;
+          console.log(recipeIngList);
+
+          // create ingredient list
+          for(let j = 0; j < recipeIngList.length; j++) {
+            let newEl = $("<li>");
+            newEl.text(recipeIngList[j].text);
+            ingred.append(newEl);
+
+          }
+
+          $(newBodyDiv).append("Ingredients");
+          $(newBodyDiv).append(ingred);
+
+
+          $(newBodyDiv).append(recipeURL);
+          $(newBodyDiv).append(recipeThumbnail);
+
+
+
+          // get and display nutrition info
+          let totalCalories = Math. round(response.hits[i].recipe.calories);
+          let servings = response.hits[i].recipe.yield;
+          let calDiv = $("<div>");
+          let servingsDiv = $("<div>");
+          let calsPerServing = $("<div>");
+          calDiv.text("Total Calories: " + totalCalories);
+          servingsDiv.text("# of Servings: " + servings);
+          calsPerServing.text(Math.round(totalCalories / servings) + " calories per serving");
+
+          let fatQuantity = response.hits[i].recipe.totalNutrients.FAT.quantity;
+          fatQuantity = fatQuantity.toFixed(1);
+          fatQuantity = fatQuantity + response.hits[i].recipe.totalNutrients.FAT.unit;
+          let fatDiv = $("<div>");
+          fatDiv.text("Total fat: " + fatQuantity);
+          let fatPerServing = $("<div>");
+          fatPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.FAT.quantity / servings) + response.hits[i].recipe.totalNutrients.FAT.unit + " fat per serving");
+
+          let proteinQuantity = response.hits[i].recipe.totalNutrients.PROCNT.quantity;
+          proteinQuantity = proteinQuantity.toFixed(1);
+          proteinQuantity = proteinQuantity + response.hits[i].recipe.totalNutrients.PROCNT.unit;
+          let proteinDiv = $("<div>");
+          proteinDiv.text("Total protein: " + proteinQuantity);
+          let proteinPerServing = $("<div>");
+          proteinPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.PROCNT.quantity / servings) + response.hits[i].recipe.totalNutrients.PROCNT.unit + " protein per serving");
+
+          $(newBodyDiv).append(calDiv);
+          $(newBodyDiv).append(servingsDiv);
+          $(newBodyDiv).append(calsPerServing);
+          $(newBodyDiv).append(fatDiv);
+          $(newBodyDiv).append(fatPerServing);
+          $(newBodyDiv).append(proteinDiv);
+          $(newBodyDiv).append(proteinPerServing);
+        }
       
+      
+        $("#recipes").append(recipeResultList);
 
-
-      let ingred = $("<ul>");
-      let recipeIngList = response.hits[i].recipe.ingredients;
-      console.log(recipeIngList);
-
-      // create ingredient list
-      for(let j = 0; j < recipeIngList.length; j++) {
-        let newEl = $("<li>");
-        newEl.text(recipeIngList[j].text);
-        ingred.append(newEl);
-
+        // this initializes the collapsibles
+        $('.collapsible').collapsible();
       }
-
-      $(recipeBodyID).append("Ingredients");
-      $(recipeBodyID).append(ingred);
-
-
-      $(recipeBodyID).append(recipeURL);
-      $(recipeBodyID).append(recipeThumbnail);
-
-
-
-      // get and display nutrition info
-      let totalCalories = Math. round(response.hits[i].recipe.calories);
-      let servings = response.hits[i].recipe.yield;
-      let calDiv = $("<div>");
-      let servingsDiv = $("<div>");
-      let calsPerServing = $("<div>");
-      calDiv.text("Total Calories: " + totalCalories);
-      servingsDiv.text("# of Servings: " + servings);
-      calsPerServing.text(Math.round(totalCalories / servings) + " calories per serving");
-
-      let fatQuantity = response.hits[i].recipe.totalNutrients.FAT.quantity;
-      fatQuantity = fatQuantity.toFixed(1);
-      fatQuantity = fatQuantity + response.hits[i].recipe.totalNutrients.FAT.unit;
-      let fatDiv = $("<div>");
-      fatDiv.text("Total fat: " + fatQuantity);
-      let fatPerServing = $("<div>");
-      fatPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.FAT.quantity / servings) + response.hits[i].recipe.totalNutrients.FAT.unit + " fat per serving");
-
-      let proteinQuantity = response.hits[i].recipe.totalNutrients.PROCNT.quantity;
-      proteinQuantity = proteinQuantity.toFixed(1);
-      proteinQuantity = proteinQuantity + response.hits[i].recipe.totalNutrients.PROCNT.unit;
-      let proteinDiv = $("<div>");
-      proteinDiv.text("Total protein: " + proteinQuantity);
-      let proteinPerServing = $("<div>");
-      proteinPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.PROCNT.quantity / servings) + response.hits[i].recipe.totalNutrients.PROCNT.unit + " protein per serving");
-
-      $(recipeBodyID).append(calDiv);
-      $(recipeBodyID).append(servingsDiv);
-      $(recipeBodyID).append(calsPerServing);
-      $(recipeBodyID).append(fatDiv);
-      $(recipeBodyID).append(fatPerServing);
-      $(recipeBodyID).append(proteinDiv);
-      $(recipeBodyID).append(proteinPerServing);
-
-      }
-
     });
+  } else {
+    $("#recipes").show();
+    $("#recipes").empty();
+    $("#recipes").text("Enter an ingredient before searching");
+  }
+});
+
+// add ingredient if enter is pressed while focus is in the input text box
+$('#foodInputBox').keypress(function(event){
+  var keycode = (event.keyCode ? event.keyCode : event.which);
+  if(keycode == '13'){
+    addIngredient();
   }
 });
