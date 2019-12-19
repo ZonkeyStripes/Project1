@@ -1,6 +1,10 @@
 let drinkIngredientList = [];
 
 $("#addDrinkButton").on("click", function () {
+  addStuff();
+})
+
+function addStuff () {
   let newIngredient = $("#drinkInputBox").val().trim();
   $("#drinkInputBox").val("");
   drinkIngredientList.push(newIngredient);
@@ -13,36 +17,54 @@ $("#addDrinkButton").on("click", function () {
     newItem.text(drinkIngredientList[i]);
     $("#ingList").append($(newItem));
   }
+};
+
+$('#drinkInputBox').keypress(function(event){
+  let keycode = (event.keyCode ? event.keyCode : event.which);
+  if(keycode == '13'){
+    addStuff();
+  }
 });
+
 $("#clearDrinksButton").on("click", function () {
   drinkIngredientList = [];
   $("#ingList").empty();
 });
+
 $("#DrinkSearchButton").on("click", function showDrinks() {
-  //   function clearBox() {
-  //     $("#drnkHere").text("");
-  // }
-  // clearBox();
+    function clearBox() {
+      $("#recipes").text("");
+  }
+  clearBox();
 
 
   $("#recipes").show();
   let input = "";
   for (let i = 0; i < drinkIngredientList.length; i++) {
-    input = input + " " + drinkIngredientList[i];
-  }
+    if(i == drinkIngredientList.length - 1) {
+      input = input + drinkIngredientList[i]
+    } else {
+      input = input + drinkIngredientList[i] + ",";
+    }
+  } 
   input = input.trim();
   if (input != "") {
-    // let drinkInput = $("input").val()
-    let tailURL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + input
+    
+    let tailURL = "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=" + input
+    
     console.log(tailURL)
     $.ajax({
       url: tailURL,
       method: "GET"
     }).then(function (response) {
       $("#recipes").show();
+      if (response.drinks == "None Found") {
+        $("#recipes").empty();
+        $("#recipes").text("Sorry! Couldn't find anything matching that.")
+        console.log(response)
+      } else {
       for (i = 0; i < response.drinks.length; i++) {
-        // response.drinks.length
-        console.log(response.drinks[i].strDrinkThumb)
+        
         let div = $("#recipes")
         let unorderList = $("<ul>").addClass("collapsible popout").attr("data-collapsible", "accordion")
         let dList = $("<li>")
@@ -87,7 +109,7 @@ $("#DrinkSearchButton").on("click", function showDrinks() {
             if (res.drinks[0][ingredNum] != null) {
               
               if (measurement == null) {
-                measurement = "Optional"
+                measurement = "As desired"
                 
               }
               let unorder = $("<ul></ul>")
@@ -127,7 +149,12 @@ $("#DrinkSearchButton").on("click", function showDrinks() {
         })// end of ingredient loop
         // }) //end of second click function
       } // end of first loop
+    }// end of else
     })
+  } else {
+    $("#recipes").show();
+    $("#recipes").empty();
+    $("#recipes").text("Please provide a drink to search for.")
   }
 })
 function showIngredient() {
@@ -145,3 +172,7 @@ $("#clickMe").on("click", function () {
       // console.log(response);
     });
 });
+
+
+
+// $("#addDrinkButton").on("click", f
