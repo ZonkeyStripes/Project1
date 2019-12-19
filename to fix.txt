@@ -1,6 +1,5 @@
 fix behavior if no results are returned
 
-fix behavior if less than 3 results are returned
 
 select number of results
 

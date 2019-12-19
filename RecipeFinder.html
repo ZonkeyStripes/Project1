@@ -22,7 +22,6 @@
 <!--  -->
 <!--  -->
     <!-- Links -->
-    <link rel = "stylesheet" href="https://fonts.googleapis.com/icon?   family=Material+Icons">
     <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
@@ -56,45 +55,48 @@
         <div id="ingredientListDiv">
           <ul id="ingList"></ul>
         </div>
-        <input id="foodInputBox"> <br>
+        <div class="input-field col s6">
+          <input placeholder="Enter ingredient" id="foodInputBox" type="text" class="validate">
+          <label for="foodInputBox">Enter Ingredient</label>
+        </div> <br>
 
-<button id="addIngredientButton" class="btn"style="background-color: rgb(180, 6, 6)">Add Ingredient</button>
-<button id="clearIngredientsButton"class="btn"style="background-color: rgb(180, 6, 6)">Clear Ingredients</button>
-<button id="foodSearchButton"class="btn"style="background-color: rgb(180, 6, 6)">Find Some Recipes</button>
+        <button id="addIngredientButton" class="btn"style="background-color: rgb(180, 6, 6)">Add Ingredient</button>
+        <button id="clearIngredientsButton"class="btn"style="background-color: rgb(180, 6, 6)">Clear Ingredients</button>
+        <button id="foodSearchButton"class="btn"style="background-color: rgb(180, 6, 6)">Find Some Recipes</button>
 
         <span id="showFilterText">Show Filters</span>
         <div id="filterDiv">
             <form action="#">
                 <p>
                   <label>
-                    <input type="checkbox" />
+                    <input type="checkbox" id="veganCheckbox" />
                     <span>Vegan</span>
                   </label>
                 </p>
                 <p>
                   <label>
-                    <input type="checkbox" />
+                    <input type="checkbox" id="vegetarianCheckbox" />
                     <span>Vegetarian</span>
                   </label>
                 </p>
                 <p>
                     <label>
-                      <input type="checkbox" />
-                      <span>Dairy-Free</span>
+                      <input type="checkbox" id="peanutfreeCheckbox" />
+                      <span>Peanut-Free</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                      <input type="checkbox" />
-                      <span>Gluten-Free</span>
+                      <input type="checkbox" id="alcoholfreeCheckbox" />
+                      <span>Alcohol-Free</span>
                     </label>
                 </p>      
             </form>
         </div>
     </div>
-  <div id="recipes" class="col-12 section">
+  <div id="recipes" class="col s12 section">
     <!-- this is where the recipe boxes will popluate -->
-    <ul class="collapsible popout" data-collapsible = "accordion">
+    <!-- <ul class="collapsible popout" data-collapsible = "accordion">
         <li>
             <div class="collapsible-header" id="recipeHeader0">First Recipe</div>
             <div class="collapsible-body"><p id="recipe_0">First recipe goes here</p></div>
@@ -107,14 +109,16 @@
             <div class="collapsible-header" id="recipeHeader2">Third Recipe</div>
             <div class="collapsible-body"><p id="recipe_2">Third recipe goes here</p></div>
         </li>
-    </ul>
+    </ul> -->
   </div>
 <!--  -->
+<!-- Import JQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- the Materialize javascript required for use -->
 <script type="text/javascript" src="./Assets/Javascript/materialize.js"></script>
 <!-- <script type="text/javascript" src="C:\Users\bobst\Desktop\materialize-v1.0.0\materialize\js\materialize.min.js"></script> -->
-<!-- Import JQuery -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
 <!-- Import our javascript file -->
 <script type="text/javascript" src="./Assets/Javascript/main.js"></script>
 <!--  -->
