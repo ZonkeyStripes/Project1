@@ -2,14 +2,14 @@
 #recipe_finder_html_tag {
     background-color:lightsteelblue;
     background-image: url("../Css/Food_background2.png");
-    background-size: cover;
+    background-size: 100%;
 
 }
 
 #drink_finder_body_tag {
     background-color: lightgray;
     background-image: url("../Css/Drinks_background.png");
-    background-size: cover;
+    background-size: 100%;
 }
 
 .lead {
