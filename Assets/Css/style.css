@@ -12,6 +12,20 @@
     background-size: 100%;
 }
 
+#how_to_body_tag {
+    background-color: lightgray;
+    background-image: url("../Css/HowTo_Background.gif");
+    background-size: 100%;
+    
+}
+
+.howto_section {
+    background-color: #f2ff0591;
+    font-weight: 600;
+    font-size: larger;
+    text-align: left;
+}
+
 .lead {
     
     font-weight: 500;
@@ -40,6 +54,13 @@
     padding: 8px;
 }
 
+/* #step_by_step {
+    width: 50%;
+}
+#cookbook_div {
+   width: 16.6%;
+   margin-left: 33.33%; */
+}
 
 /* For some reason, Materialize was adding in a character counter to our input and displaying it in the bottom right corner of our ingredients input section. This makes it hidden. */
 .character-counter {
