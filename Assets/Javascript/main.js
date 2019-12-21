@@ -4,6 +4,7 @@ let filterToggle = false;
 
 $("#recipes").hide();
 $("#filterDiv").hide();
+$("#spinnerDiv").hide();
 
 // add ingredients to the list
 $("#addIngredientButton").on("click", function() {
@@ -47,6 +48,9 @@ $("#showFilterText").on("click", function() {
 
 // builds the search string and queries the recipe API, displays results
 $("#foodSearchButton").on("click", function() {
+
+
+  $("#spinnerDiv").show();
 
     // let input = $("#foodInputBox").val();
   let input = "";
@@ -96,7 +100,9 @@ $("#foodSearchButton").on("click", function() {
     })
     // After the data comes back from the API
     .then(function(response) {
-
+      
+      $("#spinnerDiv").hide();
+      
       console.log(response);
       let numOfRecipes = response.hits.length;
 
@@ -126,6 +132,22 @@ $("#foodSearchButton").on("click", function() {
           newBodyDiv.addClass("collapsible-body");
           newBodyDiv.attr("id", recipeBodyID);
 
+          // setup the inside of the body div in 3 columns
+          let newRow = $("<div>");
+          newRow.addClass("row");
+          let newCol1 = $("<div>");
+          let newCol2 = $("<div>");
+          let newCol3 = $("<div>");
+          newCol1.addClass("col s12 m4");
+          newCol2.addClass("col s12 m4 center");
+          newCol3.addClass("col s12 m4");
+          newRow.append(newCol1);
+          newRow.append(newCol2);
+          newRow.append(newCol3);
+
+
+
+
           // append new collapsible
           newListElement.append(newHeaderDiv);
           newListElement.append(newBodyDiv);
@@ -148,7 +170,8 @@ $("#foodSearchButton").on("click", function() {
           let recipeThumbnail = $("<img>");
           recipeThumbnail.attr("src", response.hits[i].recipe.image);
           recipeThumbnail.attr("alt", "Picture of " + response.hits[i].recipe.label);
-          $(recipeThumbnail).width(200);
+          recipeThumbnail.addClass("responsive-img");
+          //$(recipeThumbnail).width(175);
           
 
 
@@ -164,12 +187,16 @@ $("#foodSearchButton").on("click", function() {
 
           }
 
-          $(newBodyDiv).append("Ingredients");
-          $(newBodyDiv).append(ingred);
+          let newSpan = $("<span>");
+          newSpan.text("Ingredients");
+          newSpan.css("font-weight","bold");
+
+          $(newCol1).append(newSpan);
+          $(newCol1).append(ingred);
 
 
-          $(newBodyDiv).append(recipeURL);
-          $(newBodyDiv).append(recipeThumbnail);
+          $(newCol1).append(recipeURL);
+          $(newCol2).append(recipeThumbnail);
 
 
 
@@ -199,13 +226,21 @@ $("#foodSearchButton").on("click", function() {
           let proteinPerServing = $("<div>");
           proteinPerServing.text(Math.round(response.hits[i].recipe.totalNutrients.PROCNT.quantity / servings) + response.hits[i].recipe.totalNutrients.PROCNT.unit + " protein per serving");
 
-          $(newBodyDiv).append(calDiv);
-          $(newBodyDiv).append(servingsDiv);
-          $(newBodyDiv).append(calsPerServing);
-          $(newBodyDiv).append(fatDiv);
-          $(newBodyDiv).append(fatPerServing);
-          $(newBodyDiv).append(proteinDiv);
-          $(newBodyDiv).append(proteinPerServing);
+          let ingredSpan = $("<span>");
+          ingredSpan.text("Nutrition Information");
+          ingredSpan.css("font-weight","bold");
+
+          $(newCol3).append(ingredSpan);
+          $(newCol3).append(calDiv);
+          $(newCol3).append(servingsDiv);
+          $(newCol3).append(calsPerServing);
+          $(newCol3).append(fatDiv);
+          $(newCol3).append(fatPerServing);
+          $(newCol3).append(proteinDiv);
+          $(newCol3).append(proteinPerServing);
+
+          newBodyDiv.append(newRow);
+  
         }
       
       
@@ -216,6 +251,7 @@ $("#foodSearchButton").on("click", function() {
       }
     });
   } else {
+    $("#spinnerDiv").hide();
     $("#recipes").show();
     $("#recipes").empty();
     $("#recipes").text("Enter an ingredient before searching");
