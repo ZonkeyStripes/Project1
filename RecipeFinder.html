@@ -9,13 +9,13 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="Assets/Css/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="assets/css/materialize.css"  media="screen,projection"/>
 
     <!-- I don't know why... but the collapsable items where we put the recepies on the bottom won't work unless I put the exact same line above here, but with type as "text/javascript"-Sam -->
-    <link type="text/javascript" rel="stylesheet" href="Assets/Css/materialize.css"  media="screen,projection"/>
+    <link type="text/javascript" rel="stylesheet" href="assets/css/materialize.css"  media="screen,projection"/>
 
     <!-- trying to link in our own stylesheet... -->
-    <link type="text/css" rel="stylesheet" href="Assets/Css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css"/>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -39,13 +39,10 @@
         </div>
         <!-- Link buttons -->
         <div class="row">
-            <!-- this invisible section is "eight wide" to push the buttons to the right by that "eight wide" length -->
-            <!-- <div class="col s8" id="invisible_header_area">what should be an invisible area to push buttons</div> -->
-            <!-- Then here are the buttons which will link to the other pages or whatever. -->
-            <div class="col right" id="nav_buttons">
-                <a href="Index.html" class="btn"style="background-color: rgb(180, 6, 6)">How Does This Work?</a>
-                <a href="RecipeFinder.html" class="btn"style="background-color: rgb(180, 6, 6)">Make a Meal!</a>
-                <a href="DrinkFinder.html" class="btn"style="background-color: rgb(180, 6, 6)">Mix a Drink!</a>
+            <div class="col right" id="nav_buttons" style="margin-right: 20px;">
+                <a href="./index.html" class="btn"style="background-color: rgb(180, 6, 6)">How Does This Work?</a>
+                <a href="./recipefinder.html" class="btn"style="background-color: rgb(180, 6, 6)">Make a Meal!</a>
+                <a href="./drinkfinder.html" class="btn"style="background-color: rgb(180, 6, 6)">Mix a Drink!</a>
             </div>
         </div>
     </div>
@@ -64,7 +61,7 @@
         <button id="clearIngredientsButton"class="btn"style="background-color: rgb(180, 6, 6)">Clear Ingredients</button>
         <button id="foodSearchButton"class="btn"style="background-color: rgb(180, 6, 6)">Find Some Recipes</button>
 
-        <span id="showFilterText">Show Filters</span>
+        <span id="showFilterText"class="btn"style="background-color: rgb(180, 6, 6)">Show Filters</span>
         <div id="filterDiv">
             <form action="#">
                 <p>
@@ -111,17 +108,17 @@
     </div>
   </div>
   <div id="recipes" class="col s12 section">
+
   </div>
-<!--  -->
 <!-- Import JQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- the Materialize javascript required for use -->
-<script type="text/javascript" src="./Assets/Javascript/materialize.js"></script>
+<script type="text/javascript" src="./assets/Javascript/materialize.js"></script>
 <!-- <script type="text/javascript" src="C:\Users\bobst\Desktop\materialize-v1.0.0\materialize\js\materialize.min.js"></script> -->
 
 
 <!-- Import our javascript file -->
-<script type="text/javascript" src="./Assets/Javascript/main.js"></script>
+<script type="text/javascript" src="./assets/Javascript/main.js"></script>
 <!--  -->
 
 </body>
